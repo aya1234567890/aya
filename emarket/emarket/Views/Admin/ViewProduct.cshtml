@@ -1,0 +1,126 @@
+﻿@using PagedList.Mvc
+@model  PagedList.IPagedList<emarket.Models.Product>
+@{
+    ViewBag.Title = "ViewProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>View Product</title>
+    <link href="~/Content/paginition.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <style>
+        link :hover {
+            color: #ed4148;
+        }
+
+        link {
+            text-decoration: none;
+            color: #6a6c6c;
+        }
+
+        .button {
+     background-color: #be774d;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="      height: auto;
+        margin-top: 30px">
+        <table>
+            <tr>
+
+                <td style="margin-left:30px">
+
+                    @using (Html.BeginForm())
+                    {
+                        <p>
+                            Filter: @Html.TextBox("SearchString")
+                        </p>
+                    }
+
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("ADD PRODUCT", "create", "Admin", new { @class = "button" })
+
+
+                </td>
+            </tr>
+
+        </table>
+
+
+
+
+
+
+        <div class="row" style="margin-bottom:80px;">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+            <div class="col-xs-6 col-md-4 col-lg-2" style="        margin-top: 100px;
+        
+        background-color: #f9ebe3;
+        border-bottom: solid 1px;
+        border-bottom-color: #be774d;
+         border-radius: 3px 3px 3px 3px;
+         border-right-color: #be774d;
+         border-right: solid 1px;
+
+    ">
+
+              <img src="@Url.Content(item.image)" style="       height:70%;width:70% ; position:center;margin-left:30px;" />
+        @*<img src="@Url.Content(item.image)" width="80" height="80" class="img-rounded" />*@
+                <h4 style="        color: #6a6c6c;
+                            font-family: 'Tahoma';
+                            font-size: 20px;
+                            font-weight: bold;
+                            text-align: center;
+                            text-decoration: none;">
+
+                    @Html.ActionLink(@item.name, "ViewProductDetails", new { id = @item.id }, new { @class = "link" })
+                </h4>
+                <h6 style="       color:#be774d; font-family:'Tahoma';font-size:14px;text-align:center">@item.price EGP</h6>
+
+                @Html.ActionLink("ADD TO CART", "create", "Admin", new { id = @item.id }, new { @class = "button" })
+
+
+            </div>
+
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+</body>
+</html>
